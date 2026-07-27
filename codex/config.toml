@@ -1,0 +1,15 @@
+[projects."/home/yyf/MinivLLM"]
+trust_level = "trusted"
+
+[projects."/home/yyf/cs336/assignment5-alignment"]
+trust_level = "trusted"
+
+[projects."/home/yyf/dotfiles"]
+trust_level = "trusted"
+
+[tui]
+vim_mode_default = false
+
+[tui.model_availability_nux]
+"gpt-5.5" = 1
+"gpt-5.6-sol" = 4
