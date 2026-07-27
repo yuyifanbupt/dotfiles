@@ -6,7 +6,7 @@ My Personal dotfiles configuration repo.
 ## Usage
 
 ```bash
-git clone <repository-url> ~/dotfiles
+git clone https://github.com/yuyifanbupt/dotfiles ~/dotfiles
 cd ~/dotfiles
 
 # sync configuration for nvim
