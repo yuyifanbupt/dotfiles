@@ -147,6 +147,7 @@ install_brew_packages() {
     tree-sitter-cli
     hf
     git-delta
+    tmux
   )
 
   log "Installing command-line tools with Homebrew"
