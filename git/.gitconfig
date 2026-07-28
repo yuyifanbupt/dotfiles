@@ -1,0 +1,42 @@
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = true
+
+# Create ~/dotfiles/git/.gitconfig.local with the following content:
+# [user]
+#     name = Your Name
+#     email = you@example.com
+[include]
+  path = ~/dotfiles/git/.gitconfig.local
+
+[delta]
+  side-by-side = false
+  dark = true
+  file-style = omit
+  hunk-header-decoration-style = omit
+  hunk-header-file-style = magenta
+  hunk-header-line-number-style = dim magenta
+  hunk-header-style = file line-number syntax
+  line-numbers = true
+  minus-emph-style = bold red 52
+  minus-empty-line-marker-style = normal "#3f0001"
+  minus-non-emph-style = dim red
+  minus-style = bold red
+  plus-emph-style = bold green 22
+  plus-empty-line-marker-style = normal "#002800"
+  plus-non-emph-style = dim green
+  plus-style = bold green
+  syntax-theme = OneHalfDark
+  whitespace-error-style = reverse red
+  zero-style = dim syntax
+
+[merge]
+    conflictStyle = zdiff3
