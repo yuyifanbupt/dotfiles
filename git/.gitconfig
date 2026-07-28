@@ -37,6 +37,3 @@
   syntax-theme = OneHalfDark
   whitespace-error-style = reverse red
   zero-style = dim syntax
-
-[merge]
-    conflictStyle = zdiff3
