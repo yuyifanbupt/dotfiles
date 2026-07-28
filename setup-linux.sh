@@ -148,6 +148,7 @@ install_brew_packages() {
     hf
     git-delta
     tmux
+    node
   )
 
   log "Installing command-line tools with Homebrew"
