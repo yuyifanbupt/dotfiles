@@ -5,10 +5,10 @@ return {
       hidden = true,
       ignored = true,
       sources = {
-        files = {
-          hidden = true,
-          ignored = true,
-        },
+        -- files = {
+        --   hidden = true,
+        --   ignored = true,
+        -- },
       },
       win = {
         -- input window
