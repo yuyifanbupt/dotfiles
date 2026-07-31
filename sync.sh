@@ -65,6 +65,20 @@ sync_lazygit() {
   ln -s -- "$source" "$target"
 }
 
+sync_yazi() {
+  local target_dir="$HOME/.config/yazi"
+  local target="$target_dir/yazi.toml"
+  local source="$script_dir/yazi/yazi.toml"
+
+  mkdir -p -- "$target_dir"
+
+  if [[ -e "$target" || -L "$target" ]]; then
+    rm -- "$target"
+  fi
+
+  ln -s -- "$source" "$target"
+}
+
 sync_nvim() {
   local target_dir="$HOME/.config"
   local target="$target_dir/nvim"
@@ -80,7 +94,7 @@ sync_nvim() {
 }
 
 print_usage() {
-  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|nvim>...\n' "$0"
+  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim>...\n' "$0"
   printf '\n'
   printf 'Options:\n'
   printf '  -h, --help  Show this help message\n'
@@ -98,6 +112,7 @@ sync_component() {
   zsh) sync_zsh ;;
   git) sync_git ;;
   lazygit) sync_lazygit ;;
+  yazi) sync_yazi ;;
   nvim) sync_nvim ;;
   esac
 }
@@ -113,7 +128,7 @@ for argument in "$@"; do
     print_usage
     exit 0
     ;;
-  all | tmux | codex | zsh | git | lazygit | nvim) ;;
+  all | tmux | codex | zsh | git | lazygit | yazi | nvim) ;;
   *)
     printf 'Error: unknown argument: %s\n\n' "$argument" >&2
     print_usage >&2
@@ -123,7 +138,7 @@ for argument in "$@"; do
 done
 
 if [[ " $* " == *" all "* ]]; then
-  components=(tmux codex zsh git lazygit nvim)
+  components=(tmux codex zsh git lazygit yazi nvim)
 else
   components=("$@")
 fi
