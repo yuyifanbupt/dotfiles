@@ -48,3 +48,10 @@ After syncing, verify the links with:
 ```bash
 ls -l ~/.zshrc ~/.tmux.conf ~/.codex/config.toml ~/.config/nvim
 ```
+
+## TODO
+- [ ] nvim spell check configuration
+- [ ] ghostty
+- [ ] fzf
+- [ ] karabiner
+- [ ] raycast
