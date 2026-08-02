@@ -69,15 +69,24 @@ install_oh_my_zsh() {
 
 install_zsh_plugins() {
   local custom_dir="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-  local plugin_dir="$custom_dir/plugins/zsh-autosuggestions"
+  local zsh_autosuggestions_dir="$custom_dir/plugins/zsh-autosuggestions"
+  local zsh_syntax_highlighting_dir="$custom_dir/plugins/zsh-syntax-highlighting"
 
   mkdir -p -- "$custom_dir/plugins"
-  if [[ -d "$plugin_dir/.git" ]]; then
+  if [[ -d "$zsh_autosuggestions_dir/.git" ]]; then
     log "zsh-autosuggestions is already installed; skipping"
   else
-    [[ ! -e "$plugin_dir" ]] || die "$plugin_dir exists but is not a Git repository; inspect or move it first"
+    [[ ! -e "$zsh_autosuggestions_dir" ]] || die "$zsh_autosuggestions_dir exists but is not a Git repository; inspect or move it first"
     log "Installing zsh-autosuggestions"
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$plugin_dir"
+    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$zsh_autosuggestions_dir"
+  fi
+
+  if [[ -d "$zsh_syntax_highlighting_dir/.git" ]]; then
+    log "zsh-syntax-highlighting is already installed; skipping"
+  else
+    [[ ! -e "$zsh_syntax_highlighting_dir" ]] || die "$zsh_syntax_highlighting_dir exists but is not a Git repository; inspect or move it first"
+    log "Installing zsh-syntax-highlighting"
+    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$zsh_syntax_highlighting_dir"
   fi
 }
 
@@ -126,6 +135,7 @@ install_brew_packages() {
   local packages=(
     uv
     nvim
+    bat
     lazygit
     codex
     dust
