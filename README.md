@@ -55,3 +55,4 @@ ls -l ~/.zshrc ~/.tmux.conf ~/.codex/config.toml ~/.config/nvim
 - [ ] fzf
 - [ ] karabiner
 - [ ] raycast
+- [ ] [OSC 52 copy](https://share.google/aimode/i5J8ULSlGPhGieeQR)
