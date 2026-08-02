@@ -56,3 +56,4 @@ ls -l ~/.zshrc ~/.tmux.conf ~/.codex/config.toml ~/.config/nvim
 - [ ] karabiner
 - [ ] raycast
 - [ ] [OSC 52 copy](https://share.google/aimode/i5J8ULSlGPhGieeQR)
+- [ ] opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard
