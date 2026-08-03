@@ -93,8 +93,19 @@ sync_nvim() {
   ln -s -- "$source" "$target"
 }
 
+sync_copy_over_ssh() {
+  local target="/usr/bin/pbcopy"
+  local source="$script_dir/scripts/copy-over-ssh.sh"
+
+  if [[ -w "$(dirname -- "$target")" ]]; then
+    install -m 0755 -- "$source" "$target"
+  else
+    sudo install -m 0755 -- "$source" "$target"
+  fi
+}
+
 print_usage() {
-  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim>...\n' "$0"
+  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim|copy-over-ssh>...\n' "$0"
   printf '\n'
   printf 'Options:\n'
   printf '  -h, --help  Show this help message\n'
@@ -114,6 +125,7 @@ sync_component() {
   lazygit) sync_lazygit ;;
   yazi) sync_yazi ;;
   nvim) sync_nvim ;;
+  copy-over-ssh) sync_copy_over_ssh ;;
   esac
 }
 
@@ -128,7 +140,7 @@ for argument in "$@"; do
     print_usage
     exit 0
     ;;
-  all | tmux | codex | zsh | git | lazygit | yazi | nvim) ;;
+  all | tmux | codex | zsh | git | lazygit | yazi | nvim | copy-over-ssh) ;;
   *)
     printf 'Error: unknown argument: %s\n\n' "$argument" >&2
     print_usage >&2
@@ -138,7 +150,7 @@ for argument in "$@"; do
 done
 
 if [[ " $* " == *" all "* ]]; then
-  components=(tmux codex zsh git lazygit yazi nvim)
+  components=(tmux codex zsh git lazygit yazi nvim copy-over-ssh)
 else
   components=("$@")
 fi
