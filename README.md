@@ -19,7 +19,7 @@ cd ~/dotfiles
 ./sync.sh all
 ```
 
-check usage
+Check usage
 
 ```bash
 ./sync.sh --help
