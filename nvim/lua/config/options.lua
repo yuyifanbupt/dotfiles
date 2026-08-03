@@ -9,3 +9,5 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
     vim.bo.readonly = true
   end,
 })
+
+vim.opt.clipboard = ""
