@@ -52,7 +52,8 @@ sync_git() {
 }
 
 sync_lazygit() {
-  local target_dir="$HOME/.config/lazygit"
+  local target_dir
+  target_dir="$(lazygit --print-config-dir)"
   local target="$target_dir/config.yml"
   local source="$script_dir/lazygit/config.yml"
 
