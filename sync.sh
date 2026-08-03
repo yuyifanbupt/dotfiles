@@ -93,6 +93,32 @@ sync_nvim() {
   ln -s -- "$source" "$target"
 }
 
+sync_ghostty() {
+  local target_dir="$HOME/Library/Application Support/com.mitchellh.ghostty"
+  local target="$target_dir/config"
+  local source="$script_dir/ghostty/config"
+
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    printf 'Error: ghostty sync is only supported on macOS\n' >&2
+    return 1
+  fi
+
+  if ! command -v ghostty >/dev/null 2>&1 \
+    && [[ ! -d "/Applications/Ghostty.app" ]] \
+    && [[ ! -d "$HOME/Applications/Ghostty.app" ]]; then
+    printf 'Error: Ghostty is not installed\n' >&2
+    return 1
+  fi
+
+  mkdir -p -- "$target_dir"
+
+  if [[ -e "$target" || -L "$target" ]]; then
+    rm -- "$target"
+  fi
+
+  ln -s -- "$source" "$target"
+}
+
 sync_copy_over_ssh() {
   local target="/usr/bin/pbcopy"
   local source="$script_dir/scripts/copy-over-ssh.sh"
@@ -105,7 +131,7 @@ sync_copy_over_ssh() {
 }
 
 print_usage() {
-  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim|copy-over-ssh>...\n' "$0"
+  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim|ghostty|copy-over-ssh>...\n' "$0"
   printf '\n'
   printf 'Options:\n'
   printf '  -h, --help  Show this help message\n'
@@ -125,6 +151,7 @@ sync_component() {
   lazygit) sync_lazygit ;;
   yazi) sync_yazi ;;
   nvim) sync_nvim ;;
+  ghostty) sync_ghostty ;;
   copy-over-ssh) sync_copy_over_ssh ;;
   esac
 }
@@ -140,7 +167,7 @@ for argument in "$@"; do
     print_usage
     exit 0
     ;;
-  all | tmux | codex | zsh | git | lazygit | yazi | nvim | copy-over-ssh) ;;
+  all | tmux | codex | zsh | git | lazygit | yazi | nvim | ghostty | copy-over-ssh) ;;
   *)
     printf 'Error: unknown argument: %s\n\n' "$argument" >&2
     print_usage >&2
@@ -150,7 +177,7 @@ for argument in "$@"; do
 done
 
 if [[ " $* " == *" all "* ]]; then
-  components=(tmux codex zsh git lazygit yazi nvim copy-over-ssh)
+  components=(tmux codex zsh git lazygit yazi nvim ghostty copy-over-ssh)
 else
   components=("$@")
 fi
