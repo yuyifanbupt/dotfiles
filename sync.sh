@@ -101,8 +101,8 @@ sync_ghostty() {
   local source="$script_dir/ghostty/config"
 
   if [[ "$(uname -s)" != "Darwin" ]]; then
-    printf 'Error: ghostty sync is only supported on macOS\n' >&2
-    return 1
+    printf 'Skipping Ghostty sync: only supported on macOS\n'
+    return 0
   fi
 
   if ! command -v ghostty >/dev/null 2>&1 &&
