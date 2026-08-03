@@ -50,10 +50,10 @@ ls -l ~/.zshrc ~/.tmux.conf ~/.codex/config.toml ~/.config/nvim
 ```
 
 ## TODO
-- [ ] nvim spell check configuration
-- [ ] ghostty
-- [ ] fzf
-- [ ] karabiner
+- [x] nvim spell check configuration
+- [x] ghostty
+- [x] fzf
+- [x] karabiner
 - [ ] raycast
-- [ ] [OSC 52 copy](https://share.google/aimode/i5J8ULSlGPhGieeQR)
-- [ ] opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard
+- [x] [OSC 52 copy](https://share.google/aimode/i5J8ULSlGPhGieeQR)
+- [x] opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard

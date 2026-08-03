@@ -91,6 +91,7 @@ sync_nvim() {
   fi
 
   ln -s -- "$source" "$target"
+  nvim --headless -u NONE -i NONE -c 'mkspell! ~/.config/nvim/spell/en.utf-8.add' -c 'quit'
 }
 
 sync_ghostty() {
@@ -103,9 +104,9 @@ sync_ghostty() {
     return 1
   fi
 
-  if ! command -v ghostty >/dev/null 2>&1 \
-    && [[ ! -d "/Applications/Ghostty.app" ]] \
-    && [[ ! -d "$HOME/Applications/Ghostty.app" ]]; then
+  if ! command -v ghostty >/dev/null 2>&1 &&
+    [[ ! -d "/Applications/Ghostty.app" ]] &&
+    [[ ! -d "$HOME/Applications/Ghostty.app" ]]; then
     printf 'Error: Ghostty is not installed\n' >&2
     return 1
   fi

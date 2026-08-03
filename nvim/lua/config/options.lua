@@ -13,3 +13,4 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 vim.opt.clipboard = ""
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
