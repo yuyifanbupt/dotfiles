@@ -57,3 +57,4 @@ ls -l ~/.zshrc ~/.tmux.conf ~/.codex/config.toml ~/.config/nvim
 - [ ] raycast
 - [x] [OSC 52 copy](https://share.google/aimode/i5J8ULSlGPhGieeQR)
 - [x] opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard
+- [ ] 再想想codex的配置怎么搞
