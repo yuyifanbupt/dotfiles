@@ -146,3 +146,18 @@ export FZF_CTRL_T_OPTS="
   --walker-skip .git,node_modules,target
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+
+auto_activate_venv() {
+    if [ -d ".venv" ]; then
+        if [ "$VIRTUAL_ENV" != "$PWD/.venv" ]; then
+            source .venv/bin/activate
+        fi
+    elif [ -n "$VIRTUAL_ENV" ]; then
+        deactivate
+    fi
+}
+
+cd() {
+    builtin cd "$@" && auto_activate_venv
+}
