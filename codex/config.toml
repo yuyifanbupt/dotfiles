@@ -13,3 +13,13 @@ vim_mode_default = false
 [tui.model_availability_nux]
 "gpt-5.5" = 1
 "gpt-5.6-sol" = 4
+
+[[hooks.Stop]]
+[[hooks.Stop.hooks]]
+type = "command"
+command = 'notify "Task finished" "Codex"'
+
+[hooks.state]
+
+[hooks.state."/home/yyf/.codex/config.toml:stop:0:0"]
+trusted_hash = "sha256:322cb2d9093bb0830a9f96da48dd51c5ed24c5be6f30ade65ce4ec22b183844b"

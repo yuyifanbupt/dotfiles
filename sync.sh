@@ -121,19 +121,38 @@ sync_ghostty() {
   ln -s -- "$source" "$target"
 }
 
-sync_copy_over_ssh() {
-  local target="/usr/bin/pbcopy"
-  local source="$script_dir/scripts/copy-over-ssh.sh"
+sync_scripts() {
+  local target_dir="/usr/bin"
+  local source_dir="$script_dir/scripts"
+  local source
+  local system_name
+  local target_name
 
-  if [[ -w "$(dirname -- "$target")" ]]; then
-    install -m 0755 -- "$source" "$target"
-  else
-    sudo install -m 0755 -- "$source" "$target"
-  fi
+  system_name=$(uname -s)
+
+  for source in "$source_dir"/*; do
+    [[ -f "$source" ]] || continue
+
+    target_name=${source##*/}
+    if [[ "$system_name" == "Darwin" && "$target_name" == "copy-over-ssh.sh" ]]; then
+      continue
+    fi
+
+    target_name=${target_name%.sh}
+    if [[ "$target_name" == "copy-over-ssh" ]]; then
+      target_name="pbcopy"
+    fi
+
+    if [[ -w "$target_dir" ]]; then
+      install -m 0755 -- "$source" "$target_dir/$target_name"
+    else
+      sudo install -m 0755 -- "$source" "$target_dir/$target_name"
+    fi
+  done
 }
 
 print_usage() {
-  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim|ghostty|copy-over-ssh>...\n' "$0"
+  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim|ghostty|scripts>...\n' "$0"
   printf '\n'
   printf 'Options:\n'
   printf '  -h, --help  Show this help message\n'
@@ -154,7 +173,7 @@ sync_component() {
   yazi) sync_yazi ;;
   nvim) sync_nvim ;;
   ghostty) sync_ghostty ;;
-  copy-over-ssh) sync_copy_over_ssh ;;
+  scripts) sync_scripts ;;
   esac
 }
 
@@ -169,7 +188,7 @@ for argument in "$@"; do
     print_usage
     exit 0
     ;;
-  all | tmux | codex | zsh | git | lazygit | yazi | nvim | ghostty | copy-over-ssh) ;;
+  all | tmux | codex | zsh | git | lazygit | yazi | nvim | ghostty | scripts) ;;
   *)
     printf 'Error: unknown argument: %s\n\n' "$argument" >&2
     print_usage >&2
@@ -179,7 +198,7 @@ for argument in "$@"; do
 done
 
 if [[ " $* " == *" all "* ]]; then
-  components=(tmux codex zsh git lazygit yazi nvim ghostty copy-over-ssh)
+  components=(tmux codex zsh git lazygit yazi nvim ghostty scripts)
 else
   components=("$@")
 fi
