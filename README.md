@@ -59,4 +59,4 @@ ls -l ~/.zshrc ~/.tmux.conf ~/.codex/config.toml ~/.config/nvim
 - [x] opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard
 - [ ] 再想想codex的配置怎么搞
 - [x] [notification over ssh](https://share.google/aimode/zXvzIcr0MRA5TCHDS)
-- [ ] nvim dashboard (bochi the rock, eva, Lycoris, minato aqua, miku), try this [dot-art-generator](https://emojicombos.com/dot-art-generator)
+- [x] nvim dashboard (bochi the rock, eva, Lycoris, minato aqua, miku), try this [dot-art-generator](https://emojicombos.com/dot-art-generator)
