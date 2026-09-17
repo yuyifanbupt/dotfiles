@@ -117,6 +117,11 @@ elif [[ -x /opt/homebrew/bin/brew ]]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Add CUDA executables when installed.
+if [[ -d /usr/local/cuda/bin ]]; then
+	export PATH="/usr/local/cuda/bin:$PATH"
+fi
+
 # yazi https://yazi-rs.github.io/docs/quick-start
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
