@@ -95,6 +95,25 @@ sync_nvim() {
   nvim --headless -u NONE -i NONE -c 'mkspell! ~/.config/nvim/spell/en.utf-8.add' -c 'quit'
 }
 
+sync_karabiner() {
+  local target_dir="$HOME/.config/karabiner"
+  local target="$target_dir/karabiner.json"
+  local source="$script_dir/karabiner/karabiner.json"
+
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    printf 'Skipping Karabiner sync: only supported on macOS\n'
+    return 0
+  fi
+
+  mkdir -p -- "$target_dir"
+
+  if [[ -e "$target" || -L "$target" ]]; then
+    rm -- "$target"
+  fi
+
+  ln -s -- "$source" "$target"
+}
+
 sync_ghostty() {
   local target_dir="$HOME/Library/Application Support/com.mitchellh.ghostty"
   local target="$target_dir/config"
@@ -152,7 +171,7 @@ sync_scripts() {
 }
 
 print_usage() {
-  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim|ghostty|scripts>...\n' "$0"
+  printf 'Usage: %s <all|tmux|codex|zsh|git|lazygit|yazi|nvim|karabiner|ghostty|scripts>...\n' "$0"
   printf '\n'
   printf 'Options:\n'
   printf '  -h, --help  Show this help message\n'
@@ -172,6 +191,7 @@ sync_component() {
   lazygit) sync_lazygit ;;
   yazi) sync_yazi ;;
   nvim) sync_nvim ;;
+  karabiner) sync_karabiner ;;
   ghostty) sync_ghostty ;;
   scripts) sync_scripts ;;
   esac
@@ -188,7 +208,7 @@ for argument in "$@"; do
     print_usage
     exit 0
     ;;
-  all | tmux | codex | zsh | git | lazygit | yazi | nvim | ghostty | scripts) ;;
+  all | tmux | codex | zsh | git | lazygit | yazi | nvim | karabiner | ghostty | scripts) ;;
   *)
     printf 'Error: unknown argument: %s\n\n' "$argument" >&2
     print_usage >&2
@@ -198,7 +218,7 @@ for argument in "$@"; do
 done
 
 if [[ " $* " == *" all "* ]]; then
-  components=(tmux codex zsh git lazygit yazi nvim ghostty scripts)
+  components=(tmux codex zsh git lazygit yazi nvim karabiner ghostty scripts)
 else
   components=("$@")
 fi
