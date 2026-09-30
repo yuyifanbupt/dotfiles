@@ -70,6 +70,8 @@ return {
           "--completion-style=detailed",
           "--function-arg-placeholders=true",
           "--fallback-style=llvm",
+          "--header-insertion=never",
+          "--function-arg-placeholders=0",
         },
         init_options = {
           usePlaceholders = true,
