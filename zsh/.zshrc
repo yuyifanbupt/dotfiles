@@ -166,3 +166,23 @@ auto_activate_venv() {
 cd() {
     builtin cd "$@" && auto_activate_venv
 }
+
+# Fuzzy select a background job to bring to the foreground
+fj() {
+  zmodload zsh/parameter || return 1
+
+  local -a job_list
+  local job jobnum
+
+  for jobnum in ${(onk)jobtexts}; do
+    job_list+=("[$jobnum] ${jobtexts[$jobnum]}")
+  done
+
+  (( ${#job_list} )) || return 0
+  job=$(print -rl -- "${job_list[@]}" | fzf --height=20% --reverse)
+
+  if [[ -n "$job" ]]; then
+    jobnum=${${job#\[}%%\]*}
+    fg "%$jobnum"
+  fi
+}
