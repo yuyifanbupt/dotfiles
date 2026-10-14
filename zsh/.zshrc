@@ -70,6 +70,12 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ -x /opt/homebrew/bin/brew ]]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 plugins=(
   git
   zsh-autosuggestions
@@ -110,12 +116,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 unsetopt autocd
-
-if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [[ -x /opt/homebrew/bin/brew ]]; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
 
 # Add CUDA executables when installed.
 if [[ -d /usr/local/cuda/bin ]]; then

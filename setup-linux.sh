@@ -31,24 +31,24 @@ install_system_packages() {
   local packages=()
 
   if command_exists apt-get; then
-    packages=(zsh git curl ca-certificates autojump build-essential procps file)
+    packages=(zsh git curl ca-certificates build-essential procps file)
     log "Installing system packages with apt"
     run_as_root apt-get update
     run_as_root env DEBIAN_FRONTEND=noninteractive apt-get install -y "${packages[@]}"
   elif command_exists dnf; then
-    packages=(zsh git curl ca-certificates autojump procps-ng file gcc gcc-c++ make)
+    packages=(zsh git curl ca-certificates procps-ng file gcc gcc-c++ make)
     log "Installing system packages with dnf"
     run_as_root dnf install -y "${packages[@]}"
   elif command_exists yum; then
-    packages=(zsh git curl ca-certificates autojump procps-ng file gcc gcc-c++ make)
+    packages=(zsh git curl ca-certificates procps-ng file gcc gcc-c++ make)
     log "Installing system packages with yum"
     run_as_root yum install -y "${packages[@]}"
   elif command_exists pacman; then
-    packages=(zsh git curl ca-certificates autojump base-devel procps-ng file)
+    packages=(zsh git curl ca-certificates base-devel procps-ng file)
     log "Installing system packages with pacman"
     run_as_root pacman -Sy --needed --noconfirm "${packages[@]}"
   elif command_exists zypper; then
-    packages=(zsh git curl ca-certificates autojump procps file gcc gcc-c++ make)
+    packages=(zsh git curl ca-certificates procps file gcc gcc-c++ make)
     log "Installing system packages with zypper"
     run_as_root zypper --non-interactive install "${packages[@]}"
   else
@@ -159,6 +159,7 @@ install_brew_packages() {
     git-delta
     tmux
     node
+    autojump
   )
 
   log "Installing command-line tools with Homebrew"
