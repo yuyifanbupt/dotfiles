@@ -69,10 +69,20 @@ install_oh_my_zsh() {
 
 install_zsh_plugins() {
   local custom_dir="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+  local powerlevel10k_dir="$custom_dir/themes/powerlevel10k"
   local zsh_autosuggestions_dir="$custom_dir/plugins/zsh-autosuggestions"
   local zsh_syntax_highlighting_dir="$custom_dir/plugins/zsh-syntax-highlighting"
 
-  mkdir -p -- "$custom_dir/plugins"
+  mkdir -p -- "$custom_dir/plugins" "$custom_dir/themes"
+
+  if [[ -d "$powerlevel10k_dir/.git" ]]; then
+    log "Powerlevel10k is already installed; skipping"
+  else
+    [[ ! -e "$powerlevel10k_dir" ]] || die "$powerlevel10k_dir exists but is not a Git repository; inspect or move it first"
+    log "Installing Powerlevel10k"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$powerlevel10k_dir"
+  fi
+
   if [[ -d "$zsh_autosuggestions_dir/.git" ]]; then
     log "zsh-autosuggestions is already installed; skipping"
   else
