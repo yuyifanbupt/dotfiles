@@ -129,6 +129,9 @@ unsetopt autocd
 if [[ -d /usr/local/cuda/bin ]]; then
 	export PATH="/usr/local/cuda/bin:$PATH"
 fi
+if [[ -d /opt/cuda/bin ]]; then
+  export PATH="/opt/cuda/bin:${PATH}"
+fi
 
 # yazi https://yazi-rs.github.io/docs/quick-start
 function y() {
