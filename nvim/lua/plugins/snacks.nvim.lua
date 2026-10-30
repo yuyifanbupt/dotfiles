@@ -1,5 +1,29 @@
+---@param opts? snacks.picker.grep.Opts
+local function grep_explorer_path(opts)
+  local explorer = Snacks.picker.get({ source = "explorer" })[1]
+  local item = explorer and explorer:current()
+  if not item or not item.file then
+    vim.notify("No explorer item under the cursor", vim.log.levels.WARN)
+    return
+  end
+
+  local path = Snacks.picker.util.path(item)
+  local grep_opts = vim.tbl_deep_extend("force", {}, opts or {})
+  grep_opts.dirs = { path }
+  return Snacks.picker.grep(grep_opts)
+end
+
 return {
   "folke/snacks.nvim",
+  keys = {
+    {
+      "<leader>se",
+      function()
+        grep_explorer_path()
+      end,
+      desc = "Grep Explorer Path",
+    },
+  },
   opts = {
     dashboard = {
       preset = {
